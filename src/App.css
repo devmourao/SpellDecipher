@@ -1,10 +1,9 @@
 
 .game-container {
-  max-width: 600px;
+  max-width: 800px; 
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
-  font-family: system-ui, -apple-system, sans-serif;
 }
 
 header {
@@ -21,8 +20,9 @@ header h1 {
 }
 
 .flames-container {
-  font-size: 1.5rem;
-  margin-top: 1.5rem;
+
+  font-size: clamp(1rem, 4vw, 1.5rem); 
+  margin-top: 1rem;
   letter-spacing: 4px;
   color: #4b5563;
 }
@@ -30,26 +30,40 @@ header h1 {
 
 .spell-display {
   width: 100%;
-  display: flex;
-  justify-content: center;
+  margin: 1rem 0 2rem 0;
+  text-align: center; 
+  overflow-x: auto;   
+  padding-bottom: 10px; 
+  
+
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE e Edge */
+}
+
+
+.spell-display::-webkit-scrollbar {
+  display: none; 
+}
+
+.category-hint {
+  font-size: 1rem;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin: 0 0 1rem 0; 
 }
 
 .spell-display h2 {
-  margin: 2rem 0;
+  display: inline-block; 
+  margin: 0 auto; 
   font-family: monospace; 
   color: #111827;
-  
-
   white-space: nowrap; 
   
-  
-  font-size: clamp(1.5rem, 8vw, 3.5rem);
-  
-
-  letter-spacing: clamp(0.3rem, 3vw, 0.8rem); 
+  font-size: clamp(1.2rem, 6vw, 3rem);
+  letter-spacing: 0.4em; 
+  margin-right: -0.4em; 
 }
-
-
 
 
 .keyboard {
@@ -77,14 +91,14 @@ header h1 {
   background-color: #e5e7eb;
 }
 
-
+/* Acertos: Azul Místico */
 .key-btn.correct {
   background-color: #3b82f6;
   color: white;
   border-color: #2563eb;
 }
 
-
+/* Erros: Obsidiana Apagada */
 .key-btn.wrong {
   background-color: #374151;
   color: #9ca3af;

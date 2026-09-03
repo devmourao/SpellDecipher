@@ -4,7 +4,7 @@ import './App.css';
 const ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
 
 function App() {
-  const { maskedSpell, flames, status, guessLetter, resetGame, correctGuesses, wrongGuesses } = useSpellDecipher();
+  const { maskedSpell, flames, status, guessLetter, resetGame, correctGuesses, wrongGuesses, category } = useSpellDecipher();
 
   if (status === 'loading') {
     return <div className="loading-screen">Summoning ancient grimoire...</div>;
@@ -25,6 +25,7 @@ function App() {
 
       <main>
         <div className="spell-display">
+          <p className="category-hint">Hint: {category}</p> 
           <h2>{maskedSpell}</h2>
         </div>
 

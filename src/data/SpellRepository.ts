@@ -1,11 +1,15 @@
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import { fallbackSpells } from './fallbackSpells';
 
+export interface SpellData {
+  word: string;
+  category: string;
+}
+
 export class SpellRepository {
   private supabase: SupabaseClient | null = null;
 
   constructor() {
-    // Fetches environment variables 
     const supabaseUrl = import.meta.env?.VITE_SUPABASE_URL;
     const supabaseKey = import.meta.env?.VITE_SUPABASE_ANON_KEY;
     
@@ -14,34 +18,34 @@ export class SpellRepository {
     }
   }
 
-  /**
-   * Attempts to fetch a random spell from the database.
-   * If the network fails or credentials are missing, it safely falls back to the static dictionary.
-   */
-  public async getRandomSpell(): Promise<string> {
+  public async getRandomSpell(): Promise<SpellData> {
     try {
-      if (!this.supabase) {
-        throw new Error("Supabase client is not initialized. Missing environment variables.");
-      }
+      if (!this.supabase) throw new Error("Supabase client is not initialized.");
 
-      // Fetching a pool of words from the 'spells' table
+ 
       const { data, error } = await this.supabase
         .from('spells')
-        .select('word')
+        .select('word, category')
         .limit(20);
 
-      if (error || !data || data.length === 0) {
-        throw new Error("Failed to fetch data from Supabase.");
-      }
+      if (error || !data || data.length === 0) throw new Error("Failed to fetch data.");
 
       const randomIndex = Math.floor(Math.random() * data.length);
-      return data[randomIndex].word.toUpperCase();
+      return {
+        word: data[randomIndex].word.toUpperCase(),
+        category: data[randomIndex].category
+      };
 
     } catch (error) {
       console.warn("Database connection failed. Activating offline fallback dictionary.", error);
       
       const randomIndex = Math.floor(Math.random() * fallbackSpells.length);
-      return fallbackSpells[randomIndex].word.toUpperCase();
+      const fallback = fallbackSpells[randomIndex];
+      
+      return {
+        word: fallback.word.toUpperCase(),
+        category: fallback.category
+      };
     }
   }
 }
