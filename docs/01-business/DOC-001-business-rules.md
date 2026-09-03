@@ -14,3 +14,5 @@ The player assumes the role of a Warlock, such as "Ignis", bound to a powerful f
 * **BR-003 (Flame Deduction):** The player starts with exactly 5 Magical Flames. Every incorrect letter guess extinguishes 1 flame.
 * **BR-004 (Duplicate Guesses):** Guessing the same letter twice (whether correct or incorrect) does not deduct a flame and must be ignored by the engine.
 * **BR-005 (Categories):** Spells are grouped by thematic categories (e.g., Mythological Creatures, Magical Artifacts, Board Game Terminology).
+
+* **BR-006 (UX Feedback):** The interface must provide immediate visual feedback on the virtual keyboard. Correctly guessed letters will be highlighted. Incorrectly guessed letters will be visually faded and physically disabled to enforce BR-004 (preventing accidental duplicate inputs).
