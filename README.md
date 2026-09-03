@@ -1,75 +1,69 @@
-# React + TypeScript + Vite
+# Spell Decipher 🧙‍♂️🔥
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
+![Vitest](https://img.shields.io/badge/-Vitest-272C33?style=for-the-badge&logo=vitest&logoColor=FCC72B)
+![Clean Architecture](https://img.shields.io/badge/Architecture-Clean-success?style=for-the-badge)
 
-Currently, two official plugins are available:
+A production-ready, mobile-first Word Guessing RPG built with React and TypeScript. 
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+This project demonstrates software engineering practices, including strictly decoupled logic (Clean Architecture), Test-Driven Development (TDD), and an agile documentation-as-code approach.
 
-## React Compiler
+## 🌟 Key Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+* **Platform-Agnostic Core Engine:** The game logic (`SpellDecipherGame`) is written in pure OOP TypeScript, completely isolated from the React UI.
+* **Smart Keyboard UI:** Dynamic visual feedback for guessed letters (correct/wrong) with physical button disabling to enforce business rules natively.
+* **Resilient Data Layer:** Implements a Repository Pattern with an offline fallback mechanism to ensure the game remains playable even without network connectivity.
+* **Mobile-First Responsive Design:** Advanced CSS techniques (`clamp()`, `white-space: nowrap`, and custom scrollbars) guarantee a seamless experience across all device sizes.
 
-## Expanding the ESLint configuration
+## 🏗️ Architecture & Documentation
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+The project strictly follows a documented framework. You can explore the architectural decisions and business rules in the `/docs` directory:
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+* [DOC-001: Business Rules & Game Design](./docs/01-business/DOC-001-business-rules.md)
+* [DOC-002: Data Dictionary](./docs/02-data/DOC-002-data-dictionary.md)
+* [DOC-003: System Architecture](./docs/03-architecture/DOC-003-system-architecture.md)
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## 🚀 Getting Started
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+To run this project locally, follow these steps:
 
+### Prerequisites
+* Node.js (v18 or higher)
+* npm or yarn
+
+### Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/devmourao/SpellDecipher.git
+   ```
+
+2. Navigate to the project directory:
+   ```bash
+   cd SpellDecipher
+   ```
+
+3. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+4. Start the development server:
+   ```bash
+   npm run dev
+   ```
+
+## 🧪 Testing
+
+The Core Engine and Repository layers are built using Test-Driven Development (TDD). To run the test suite via Vitest:
+
+```bash
+npm run test
 ```
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+## 👨‍💻 Author
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
-```
+**Marcos Ferreira Mourão**
+* Portfolio: [dev.mourao.info](https://dev.mourao.info)
+* Role: Developer
