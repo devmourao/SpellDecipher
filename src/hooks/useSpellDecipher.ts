@@ -9,20 +9,23 @@ export function useSpellDecipher() {
   const [maskedSpell, setMaskedSpell] = useState<string>('');
   const [flames, setFlames] = useState<number>(5);
   const [status, setStatus] = useState<GameStatus>('loading');
+  const [category, setCategory] = useState<string>('');
 
   const initializeGame = useCallback(async () => {
     setStatus('loading');
     
     // Fetch data using our resilient repository
     const repository = new SpellRepository();
-    const word = await repository.getRandomSpell();
+    const spellData = await repository.getRandomSpell();
+    
     
     // Initialize the core engine
-    const newGame = new SpellDecipherGame(word);
+    const newGame = new SpellDecipherGame(spellData.word, spellData.category);
     
     setGame(newGame);
     setMaskedSpell(newGame.getMaskedSpell());
     setFlames(newGame.remainingFlames);
+    setCategory(newGame.category)
     setStatus('playing');
   }, []);
 
@@ -57,6 +60,7 @@ export function useSpellDecipher() {
     guessLetter, 
     resetGame: initializeGame ,
     correctGuesses,
-    wrongGuesses
+    wrongGuesses,
+    category
   };
 }

@@ -6,7 +6,7 @@ describe('SpellDecipherGame Core Engine', () => {
 
   // Runs before each test to ensure a fresh game state
   beforeEach(() => {
-    game = new SpellDecipherGame('OBSIDIAN');
+    game = new SpellDecipherGame('OBSIDIAN', 'Magical Artifacts');
   });
 
   it('should initialize with max flames and a masked spell', () => {
@@ -53,4 +53,23 @@ describe('SpellDecipherGame Core Engine', () => {
     expect(game.isGameOver()).toBe(true);
     expect(game.isVictory()).toBe(false);
   });
+
+
+  
+  
+  it('should expose the spell category for the UI (BR-005)', () => {
+    expect(game.category).toBe('Magical Artifacts');
+  });
+
+    it('should categorize correct and wrong guesses accurately (BR-006)', () => {
+    game.guess('O'); // Correct
+    game.guess('X'); // Wrong
+    game.guess('I'); // Correct
+    game.guess('Z'); // Wrong
+
+    expect(game.getCorrectGuesses()).toEqual(['O', 'I']);
+    expect(game.getWrongGuesses()).toEqual(['X', 'Z']);
+  });
+
+
 });

@@ -4,14 +4,16 @@
  */
 export class SpellDecipherGame {
   private secretSpell: string;
+  private spellCategory: string;
   private guessedLetters: Set<string>;
   private _remainingFlames: number;
   
   private readonly MAX_FLAMES = 5; // Defined in DOC-001 (BR-003)
 
-  constructor(spell: string) {
+  constructor(spell: string, category: string = 'Unknown') {
     // Normalizes the spell to uppercase and removes trailing/leading spaces
     this.secretSpell = spell.trim().toUpperCase();
+    this.spellCategory = category;
     this.guessedLetters = new Set<string>();
     this._remainingFlames = this.MAX_FLAMES;
   }
@@ -89,6 +91,10 @@ export class SpellDecipherGame {
   // Getter to expose flames securely (read-only for the UI)
   public get remainingFlames(): number {
     return this._remainingFlames;
+  }
+
+  public get category(): string {
+    return this.spellCategory;
   }
 }
 

@@ -10,10 +10,12 @@ describe('SpellRepository Data Service', () => {
 
     // Act: Since Vite env vars are not loaded in this test runner context, 
     // the Supabase client will be null, forcing the fallback catch block.
-    const spell = await repository.getRandomSpell();
+   
+    const spellData = await repository.getRandomSpell();
 
     // Assert: The returned spell must be one of the offline fallback words
-    expect(validFallbackWords).toContain(spell);
+    expect(validFallbackWords).toContain(spellData.word);
+    expect(spellData.category).toBeDefined();
   });
 
   it('should log a warning to the console when falling back to offline mode', async () => {
