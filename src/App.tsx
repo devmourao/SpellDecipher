@@ -4,11 +4,15 @@ import './App.css';
 const ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
 
 function App() {
-  const { maskedSpell, flames, status, guessLetter, resetGame } = useSpellDecipher();
+  const { maskedSpell, flames, status, guessLetter, resetGame, correctGuesses, wrongGuesses } = useSpellDecipher();
 
   if (status === 'loading') {
     return <div className="loading-screen">Summoning ancient grimoire...</div>;
   }
+
+
+
+
 
   return (
     <div className="game-container">
@@ -24,17 +28,30 @@ function App() {
           <h2>{maskedSpell}</h2>
         </div>
 
-        {status === 'playing' && (
+{status === 'playing' && (
           <div className="keyboard">
-            {ALPHABET.map((letter) => (
-              <button 
-                key={letter} 
-                onClick={() => guessLetter(letter)}
-                className="key-btn"
-              >
-                {letter}
-              </button>
-            ))}
+            {ALPHABET.map((letter) => {
+             
+              const isCorrect = correctGuesses.includes(letter);
+              const isWrong = wrongGuesses.includes(letter);
+              const isGuessed = isCorrect || isWrong;
+
+            
+              let btnClass = "key-btn";
+              if (isCorrect) btnClass += " correct";
+              if (isWrong) btnClass += " wrong";
+
+              return (
+                <button 
+                  key={letter} 
+                  onClick={() => guessLetter(letter)}
+                  className={btnClass}
+                  disabled={isGuessed} 
+                >
+                  {letter}
+                </button>
+              );
+            })}
           </div>
         )}
 

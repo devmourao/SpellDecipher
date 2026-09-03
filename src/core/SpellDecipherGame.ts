@@ -70,8 +70,27 @@ export class SpellDecipherGame {
     return this._remainingFlames <= 0 && !this.isVictory();
   }
 
+
+  /**
+   * BR-006 (UX Feedback): Returns an array of letters that were guessed and exist in the spell.
+   */
+  public getCorrectGuesses(): string[] {
+    return Array.from(this.guessedLetters).filter(char => this.secretSpell.includes(char));
+  }
+
+  /**
+   * BR-006 (UX Feedback): Returns an array of letters that were guessed but do NOT exist in the spell.
+   */
+  public getWrongGuesses(): string[] {
+    return Array.from(this.guessedLetters).filter(char => !this.secretSpell.includes(char));
+  }
+
+
   // Getter to expose flames securely (read-only for the UI)
   public get remainingFlames(): number {
     return this._remainingFlames;
   }
 }
+
+
+

@@ -47,11 +47,16 @@ export function useSpellDecipher() {
     }
   }, [game, status]);
 
+  const correctGuesses = game ? game.getCorrectGuesses() : [];
+  const wrongGuesses = game ? game.getWrongGuesses() : [];
+
   return { 
     maskedSpell, 
     flames, 
     status, 
     guessLetter, 
-    resetGame: initializeGame 
+    resetGame: initializeGame ,
+    correctGuesses,
+    wrongGuesses
   };
 }
