@@ -21,8 +21,9 @@ This project demonstrates software engineering practices, including strictly dec
 The project strictly follows a documented framework. You can explore the architectural decisions and business rules in the `/docs` directory:
 
 * [DOC-001: Business Rules & Game Design](./docs/01-business/DOC-001-business-rules.md)
-* [DOC-002: Data Dictionary](./docs/02-data/DOC-002-data-dictionary.md)
-* [DOC-003: System Architecture](./docs/03-architecture/DOC-003-system-architecture.md)
+* [DOC-002: Data Dictionary](./docs/02-architecture/DOC-002-data-dictionary.md)
+* [DOC-003: System Architecture](./docs/02-architecture/DOC-003-system-architecture.md)
+                                 
 
 ## 🚀 Getting Started
 
