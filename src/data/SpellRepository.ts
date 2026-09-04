@@ -22,18 +22,27 @@ export class SpellRepository {
     try {
       if (!this.supabase) throw new Error("Supabase client is not initialized.");
 
- 
+     
       const { data, error } = await this.supabase
-        .from('spells')
-        .select('word, category')
-        .limit(20);
+        .from('sd_spells')
+        .select(`
+          word,
+          sd_categories ( name )
+        `);
 
-      if (error || !data || data.length === 0) throw new Error("Failed to fetch data.");
+      if (error || !data || data.length === 0) {
+        throw new Error("Failed to fetch data from Supabase.");
+      }
 
       const randomIndex = Math.floor(Math.random() * data.length);
+      const selectedItem = data[randomIndex];
+
+ 
+      const categoryObj = selectedItem.sd_categories as any;
+
       return {
-        word: data[randomIndex].word.toUpperCase(),
-        category: data[randomIndex].category
+        word: selectedItem.word.toUpperCase(),
+        category: categoryObj?.name || 'Unknown Category'
       };
 
     } catch (error) {
