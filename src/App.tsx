@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import { useSpellDecipher } from './hooks/useSpellDecipher';
 
@@ -17,6 +17,17 @@ function App() {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const [isShaking, setIsShaking] = useState(false);
+
+  useEffect(() => {
+    if (wrongGuesses.length > 0 && status === 'playing') {
+      setIsShaking(true);
+      const timer = setTimeout(() => setIsShaking(false), 500);
+      return () => clearTimeout(timer);
+    }
+  }, [wrongGuesses.length, status]);
+
+
   if (status === 'loading') {
     return <div className="loading-screen">Summoning ancient grimoire...</div>;
   }
@@ -26,7 +37,7 @@ function App() {
 
 
   return (
-    <div className="game-container">
+    <div className={`game-container ${isShaking ? 'shake-error' : ''}`}>
 <InfoModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
 
       <header className="game-header">
@@ -50,21 +61,26 @@ function App() {
         </div>
       </header>
 
-      <main>
+<main>
         <div className="spell-display">
           <p className="category-hint">Hint: {category}</p> 
-          <h2>{maskedSpell}</h2>
+          <h2 className="word-container">
+            
+            {maskedSpell.split('').map((char, index) => (
+              <span key={index} className={char !== '_' && char !== ' ' ? 'revealed-letter' : 'hidden-letter'}>
+                {char}
+              </span>
+            ))}
+          </h2>
         </div>
 
-{status === 'playing' && (
+        {status === 'playing' && (
           <div className="keyboard">
             {ALPHABET.map((letter) => {
-             
               const isCorrect = correctGuesses.includes(letter);
               const isWrong = wrongGuesses.includes(letter);
               const isGuessed = isCorrect || isWrong;
 
-            
               let btnClass = "key-btn";
               if (isCorrect) btnClass += " correct";
               if (isWrong) btnClass += " wrong";
@@ -83,19 +99,25 @@ function App() {
           </div>
         )}
 
-        {status === 'victory' && (
-          <div className="game-end victory">
-            <h2>Spell Deciphered!</h2>
-            <p>Your magical prowess grows.</p>
-            <button onClick={resetGame}>Decipher Another</button>
-          </div>
-        )}
-
-        {status === 'game_over' && (
-          <div className="game-end defeat">
-            <h2>The Flames Extinguished...</h2>
-            <p>The spell consumed your energy.</p>
-            <button onClick={resetGame}>Try Again</button>
+      
+        {(status === 'victory' || status === 'game_over') && (
+          <div className="modal-overlay">
+            <div className={`modal-content end-game-modal ${status}`}>
+              {status === 'victory' ? (
+                <>
+                  <h2 className="victory-title">✨ Spell Deciphered! ✨</h2>
+                  <p>Your magical prowess grows.</p>
+                </>
+              ) : (
+                <>
+                  <h2 className="defeat-title">🔥 The Flames Extinguished... 🔥</h2>
+                  <p>The spell consumed your energy.</p>
+                </>
+              )}
+              <button className="primary-action-btn" onClick={resetGame}>
+                {status === 'victory' ? 'Decipher Another' : 'Try Again'}
+              </button>
+            </div>
           </div>
         )}
       </main>
