@@ -1,10 +1,21 @@
+import { useState } from 'react';
+
 import { useSpellDecipher } from './hooks/useSpellDecipher';
+
+import { InfoModal } from './components/InfoModal';
+
+import { Globe, CircleHelp } from 'lucide-react';
+
+import { GithubIcon } from './components/GithubIcon'; 
+
 import './App.css';
 
 const ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
 
 function App() {
   const { maskedSpell, flames, status, guessLetter, resetGame, correctGuesses, wrongGuesses, category } = useSpellDecipher();
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   if (status === 'loading') {
     return <div className="loading-screen">Summoning ancient grimoire...</div>;
@@ -16,8 +27,24 @@ function App() {
 
   return (
     <div className="game-container">
-      <header>
-        <h1>Spell Decipher</h1>
+<InfoModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+
+      <header className="game-header">
+        <div className="header-top">
+          <h1>Spell Decipher</h1>
+          <div className="header-actions">
+            <a href="https://dev.mourao.info" target="_blank" rel="noopener noreferrer" title="Portfolio" className="icon-btn">
+              <Globe size={24} />
+            </a>
+            <a href="https://github.com/devmourao/SpellDecipher" target="_blank" rel="noopener noreferrer" title="GitHub" className="icon-btn">
+               <GithubIcon size={24} />
+            </a>
+            <button onClick={() => setIsModalOpen(true)} title="About" className="icon-btn">
+              <CircleHelp size={24} />
+            </button>
+          </div>
+        </div>
+        
         <div className="flames-container">
           Magical Flames: {'🔥'.repeat(flames)}{'❌'.repeat(5 - flames)}
         </div>
