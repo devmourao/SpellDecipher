@@ -272,3 +272,78 @@ header h1 {
   border-top: 1px solid #f3f4f6;
   padding-top: 1rem;
 }
+
+
+
+
+
+@keyframes shake {
+  10%, 90% { transform: translate3d(-2px, 0, 0); }
+  20%, 80% { transform: translate3d(4px, 0, 0); }
+  30%, 50%, 70% { transform: translate3d(-8px, 0, 0); }
+  40%, 60% { transform: translate3d(8px, 0, 0); }
+}
+
+.shake-error {
+  animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+}
+
+
+.word-container {
+  display: flex;
+  justify-content: center;
+  gap: 8px; 
+}
+
+@keyframes popIn {
+  0% { transform: scale(0.5); opacity: 0; }
+  70% { transform: scale(1.2); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.revealed-letter {
+  display: inline-block;
+  animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  color: #10b981; 
+}
+
+.hidden-letter {
+  display: inline-block;
+  color: #1f2937;
+}
+
+
+.end-game-modal {
+  text-align: center;
+  animation: popIn 0.4s ease-out forwards;
+}
+
+.end-game-modal.victory {
+  border-top: 6px solid #10b981;
+}
+
+.end-game-modal.game_over {
+  border-top: 6px solid #ef4444;
+}
+
+.victory-title { color: #10b981; }
+.defeat-title { color: #ef4444; }
+
+.primary-action-btn {
+  margin-top: 24px;
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.2s, background-color 0.2s;
+  width: 100%;
+}
+
+.primary-action-btn:hover {
+  background-color: #2563eb;
+  transform: translateY(-2px);
+}
